@@ -8,13 +8,13 @@ def step_1(A,set_i,j):
 # Si la primera fila vale 0, lo sustituimos por la ultima columna no nula
 def step_2(A,set_i,set_j):
     m,n = A.shape
-    # print(f"entering step_2 wit set_i {set_i} and set_j {set_j}")
+    print(f"entering step_2 wit set_i {set_i} and set_j {set_j}")
     for j in range(set_j,n):
         if step_1(A,set_i,j) == 0:
             for i in range(m-1,set_i,-1):
                 if A[i][j]!=0:
-                    # print(f"A[{i}][{j}] is not 0, changin rows...") 
-                    A[[0,i]] = A[[i,0]]
+                    print(f"A[{i}][{j}] is not 0, changin rows...") 
+                    A[[set_i,i]] = A[[i,set_i]]
                     return j
         else:
             return j
@@ -23,7 +23,7 @@ def step_2(A,set_i,set_j):
 
 # Hacemos nulos todos los valores por debajo del pivote
 def step3(A,i:int,j:int):
-    # print(f"entering step3 with set_i {i} and set_j {j} ")
+    print(f"entering step3 with set_i {i} and set_j {j} ")
     m,n = A.shape
     for x in range(i+1,m):
         if A[x][j] != 0:
@@ -40,13 +40,13 @@ def step_4(A):
         j = step_2(A,set_i,set_j)
         if j==None:
             break
-        # print(f"the {i}th pivot column is the {j}th column, its {A[i][j]}")
+        print(f"the {i}th pivot column is the {j}th column, its {A[i][j]}")
         set_i =i+1
         set_j = j+1
-        # print(A)
+        print(A)
         pivots.append((i,j))
         step3(A,i,j)
-        # print(A)
+        print(A)
     
     return A,pivots
 
@@ -73,4 +73,7 @@ def step_5(A,pivots:list):
 
     return A
         
-
+def reduced_echelon(A):
+    echelon,pivots = step_4(A)
+    print(echelon)
+    return step_5(echelon,pivots)
