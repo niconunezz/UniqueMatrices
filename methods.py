@@ -21,13 +21,11 @@ def step_2(A,set_i,set_j):
 
 # Use row replacement operations to create zeros in all positions below the pivot.
 def step3(A,i:int,j:int):
-    
     m,n = A.shape
     for x in range(i+1,m):
         if A[x][j] != 0:
-            a = A[x] * A[i][j]
-            b = A[i] * A[x][j]
-            A[x] = a - b
+            factor = A[x][j]/A[i][j]
+            A[x] = A[x] - factor*A[i]
 
 # Cover (or ignore) the row containing the pivot position and cover all rows, if any,
 # above it. Apply steps 1–3 to the submatrix that remains. Repeat the process until
